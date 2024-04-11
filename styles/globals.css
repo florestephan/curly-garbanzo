@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+
+    h1, h2, h3 {
+        font-family: var(--font-atlantic);
+    }
+
+
+    :root {
+        --bigSize: 90px;
+        --title: 42px;
+        --subtitle: 34px;
+        --large: 20px;
+        --base: 16px;
+        --textmd: 12px;
+        --textsm: 8px;
+        --cta: 14px;
+
+        @media screen and (max-width: 900px) {
+            --bigSize: 50px;
+            --title: 20px;
+            --subtitle: 24px;
+            --large: 18px;
+            --base: 15px;
+            --textmd: 11px;
+            --textsm: 7px;
+            --cta: 13px;
+        }
+    }
+}
+
+@layer utilities {
+
+    .gridCtn {
+        @apply grid grid-cols-12 px-28 m-auto max-w-screen-desktop gap-x-10;
+    }
+
+    .text-90, h1 {
+        font-size: var(--bigSize);
+    }
+
+    .text-42, h2 {
+        font-size: var(--title);
+    }
+
+    .text-34, h3 {
+        font-size: var(--subtitle);
+    }
+
+    .text-20 {
+        font-size: var(--large);
+    }
+
+    .text-base {
+        font-size: var(--base);
+    }
+
+    .text-12 {
+        font-size: var(--textmd);
+    }
+
+    .text-8 {
+        font-size: var(--textsm);
+    }
+
+    .text-cta {
+        font-family: var(--font-robotoFlex);
+        text-transform: uppercase;
+        font-size: var(--cta);
+    }
+}
