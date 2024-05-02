@@ -13,6 +13,7 @@ Using :
 - Lenis smooth scroll
 - Auth.js / Zod for validation and authentification 
 - Prisma ORM
+- Zustand
 - Resend Email
 - Internationalization (i18n) Routing
 - Host on Vercel with PostgreSQL
