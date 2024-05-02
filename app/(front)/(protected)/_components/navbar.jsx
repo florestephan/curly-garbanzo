@@ -11,7 +11,7 @@ export const Navbar = () => {
 
     return (
         <div
-            className="bg-secondary flex justify-between items-center p-4 mt-8 rounded-xl w-full] shadow-sm w-5/6 md:w-3/6 ">
+            className="bg-secondary flex justify-between items-center p-4 mt-8 rounded-xl w-full] shadow-sm w-5/6 md:w-3/6 mobile:mt-40 ">
             <div className="flex flex-wrap gap-4">
 
                 <Button

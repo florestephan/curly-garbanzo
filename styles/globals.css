@@ -36,7 +36,7 @@
 @layer utilities {
 
     .gridCtn {
-        @apply grid grid-cols-12 px-28 m-auto max-w-screen-desktop gap-x-10;
+        @apply grid grid-cols-12 px-28 m-auto max-w-screen-desktop gap-x-10 mobile:max-w-none mobile:px-4 mobile:gap-x-0;
     }
 
     .text-90, h1 {

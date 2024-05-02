@@ -1,39 +1,27 @@
 "use client"
 
-import {usePathname} from "next/navigation";
+import {HeaderDesktop} from "@/components/Header/HeaderDesktop";
+import HeaderMobile from "@/components/Header/HeaderMobile";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
-import {_list} from "@/components/Header/_list";
-import {motion, useScroll, useMotionValueEvent} from "framer-motion";
-import {useState} from "react";
+const Header = ({dataHeader}) => {
 
-export function Header({dataHeader}) {
-
-    const pathname = usePathname()
-    const {scrollYProgress} = useScroll()
-    const [hidden, setHidden] = useState(false)
-
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        const previous = scrollYProgress.getPrevious()
-
-        if (latest > previous && latest > 0.2) {
-            setHidden(true)
-        } else {
-            setHidden(false)
-        }
-    })
+    const isMobile = useMediaQuery('(max-width: 1000px)')
+    const isDesktop = useMediaQuery('(min-width: 1000px)')
 
     return (
-        <motion.header
-            variants={{
-                visible: {y: 0},
-                hidden: {y: "-100%"},
-            }}
-            animate={hidden ? "hidden" : "visible"}
-            transition={{duration: 2}}
-            className="flex items-center justify-between w-full transition delay-150 z-50 px-14 bg-white fixed h-[120px] left-0 right-0">
-            <nav className="w-full">
-                <_list pathname={pathname} data={dataHeader}/>
-            </nav>
-        </motion.header>
+        <>
+            {isMobile && (
+                <HeaderMobile dataHeader={dataHeader}/>
+            )}
+
+            {isDesktop && (
+                <HeaderDesktop dataHeader={dataHeader}/>
+            )}
+
+        </>
     )
+
 }
+
+export default Header

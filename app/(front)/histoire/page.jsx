@@ -25,20 +25,25 @@ export const HistoirePage = async () => {
             <HeroBanner title={data?.titrehero}/>
             <section className="about bg-BlackP">
                 <div className="gridCtn pt-20 pb-32">
-                    <Image
-                        src={urlForImage(data?.imageleft.asset._ref)}
-                        width={320}
-                        height={480}
-                        alt={data?.titrehero}
-                        className="col-start-3 col-end-6 object-cover w-full h-full"
-                    />
+
+                    <div
+                        className="containerImg col-start-2 col-end-6 relative w-full h-auto aspect-[320/480] mobile:col-start-2 mobile:col-end-12">
+                        <Image
+                            src={urlForImage(data?.imageleft.asset._ref)}
+                            // width={320}
+                            // height={480}
+                            fill={true}
+                            alt={data?.titrehero}
+                            className="object-cover w-full h-full"
+                        />
+                    </div>
 
                     <TitleTxtCta
                         text={data?.rightBlock.richText}
                         link={data?.rightBlock.navItems?.[0].navItemUrl.linkUrl}
                         linkText={data?.rightBlock.navItems?.[0].text}
                         isExternalLink={isExternalLink}
-                        className="col-start-7 col-end-11 text-white"
+                        className="col-start-7 col-end-11 text-white mobile:col-span-12 mobile:pt-10"
                     />
 
                     <HistoryInfoBullet data={data}/>
@@ -58,7 +63,7 @@ export const HistoirePage = async () => {
                         height="844"
                         fill="none"
                         viewBox="0 0 1446 844"
-                        className="col-span-12 w-full h-full"
+                        className="col-span-12 w-full h-full mobile:absolute -z-10"
                     >
                         <path
                             stroke="#FAFAFA"
@@ -121,7 +126,7 @@ export const HistoirePage = async () => {
                         link={data?.speBlock.navItems?.[0].navItemUrl.linkUrl}
                         linkText={data?.speBlock.navItems?.[0].text}
                         isExternalLink={isExternalLink3}
-                        className="absolute h-full col-start-4 col-end-10 text-Black w-full items-center justify-center text-center"
+                        className="absolute h-full col-start-4 col-end-10 text-Black w-full items-center justify-center text-center mobile:col-span-12 mobile:static"
                     />
                 </div>
             </section>
@@ -132,7 +137,7 @@ export const HistoirePage = async () => {
                     link={data?.pdv.navItems?.[0].navItemUrl.linkUrl}
                     linkText={data?.pdv.navItems?.[0].text}
                     isExternalLink={isExternalLinPdv}
-                    className="text-center pt-40 pb-24 items-center justify-center w-full"
+                    className="text-center pt-40 pb-24 items-center justify-center w-full mobile:col-span-12 mobile:px-4"
                 />
             </section>
         </main>

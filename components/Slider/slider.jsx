@@ -3,14 +3,18 @@ import 'swiper/css';
 import {Swiper, SwiperSlide} from "swiper/react";
 import Image from "next/image";
 import {urlForImage} from "@/sanity/lib/image";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 const Slider = ({value}) => {
+
+    const isMobile = useMediaQuery('(max-width: 900px)');
+
 
     return (
         <div className="pt-20">
             <Swiper
-                spaceBetween={10}
-                slidesPerView={8.4}
+                spaceBetween={isMobile ? 5 : 10}
+                slidesPerView={isMobile ? 2.2 : 8.4}
             >
                 {value.map(el => (
                     <SwiperSlide

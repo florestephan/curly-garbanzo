@@ -35,3 +35,13 @@ export const NewPasswordSchema = z.object({
         message: "6 characters minimum requis"
     }),
 })
+
+export const contactFormSchema = z.object({
+    email: z.string().email("Invalid email address").min(1, {message: "Email is required"}),
+    message: z.string().min(1, {message: "Message is required"}),
+    fullName: z.string().min(1, {message: "Name is required"}),
+    phone: z.string().min(1, {message: "Phone is required"}),
+    profession: z.string().optional(),
+    company: z.string().optional(),
+    gdprConsent: z.boolean().refine(val => val, {message: "You must agree to the privacy policy"}),
+});

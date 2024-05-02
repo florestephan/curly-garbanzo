@@ -25,14 +25,15 @@ export default async function Home() {
                 <HeroBanner title={data?.titrehero}/>
                 <section className="relative bg-BlackP">
                     <div className="gridCtn">
-                        <Image
-                            priority={true}
-                            src={urlForImage(data?.image.asset._ref)}
-                            width={364}
-                            height={294}
-                            alt={data?.titrehero}
-                            className="m-auto absolute left-0 right-0 -translate-y-1/2"
-                        />
+                            <Image
+                                priority={true}
+                                src={urlForImage(data?.image.asset._ref)}
+                                width={364}
+                                height={294}
+                                alt={data?.titrehero}
+                                className="m-auto absolute left-0 right-0 -translate-y-1/2 mobile:w-[182px] mobile:h-[147px]"
+                            />
+
 
                         <div className="h-[40svh] col-span-12 flex justify-center items-center w-full pt-64">
                             <svg className="" width="20" height="14"
@@ -46,7 +47,7 @@ export default async function Home() {
                             link={data?.leftBlock.navItems?.[0].navItemUrl.linkUrl}
                             linkText={data?.leftBlock.navItems?.[0].text}
                             isExternalLink={isExternalLink}
-                            className="col-span-4 block--left text-white pt-64 pb-64"
+                            className="col-span-4 block--left text-white pt-64 pb-64 mobile:col-span-12"
                         />
 
                         <Selection value={data?.selectionBlock} className="text-white"/>
@@ -59,7 +60,7 @@ export default async function Home() {
                             link={data?.mademoiselleBlock.navItems?.[0].navItemUrl.linkUrl}
                             linkText={data?.mademoiselleBlock.navItems?.[0].text}
                             isExternalLink={isExternalLinkMlle}
-                            className="col-span-4 black--left text-Black"
+                            className="col-span-4 black--left text-Black mobile:col-span-12"
                         />
 
                         <Image
@@ -67,7 +68,7 @@ export default async function Home() {
                             width={335}
                             height={335}
                             alt="photo de bague"
-                            className="object-cover col-start-1 pt-32 col-span-3"
+                            className="object-cover col-start-1 pt-32 col-span-3 mobile:row-span-1 mobile:row-start-1 mobile:pt-0 mobile:col-span-6 mobile:pb-10"
                         />
 
                         <Image
@@ -75,7 +76,7 @@ export default async function Home() {
                             width={680}
                             height={520}
                             alt="photo de bague"
-                            className="object-cover col-start-7 col-end-13 -mt-16"
+                            className="object-cover col-start-7 col-end-13 -mt-16 mobile:col-span-12 mobile:pt-40"
                         />
                     </div>
                 </section>

@@ -19,7 +19,7 @@ export const ResetForm = () => {
     const [isPending, startTransition] = useTransition()
 
     const form = useForm({
-        resolver: zodResolver(ResetSchema),
+        // resolver: zodResolver(ResetSchema),
         defaultValues: {
             email: "",
         }
@@ -31,13 +31,13 @@ export const ResetForm = () => {
         setError("")
         setSuccess("")
 
-        startTransition(() => {
-            reset(values)
-                .then((data) => {
-                    setError(data.error)
-                    setSuccess(data.success)
-                })
-        })
+        // startTransition(() => {
+        //     reset(values)
+        //         .then((data) => {
+        //             setError(data.error)
+        //             setSuccess(data.success)
+        //         })
+        // })
     }
 
     return (

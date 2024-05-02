@@ -6,11 +6,13 @@ import {SessionProvider} from "next-auth/react";
 import {auth} from "@/auth";
 import {Toaster} from "@/components/ui/sonner";
 
-import {Header} from "@/components/Header/header";
+import {HeaderDesktop} from "@/components/Header/HeaderDesktop";
 import localFont from 'next/font/local'
 import Footer from "@/components/Footer/Footer";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import {sanityFetch} from "@/sanity/lib/client";
+import HeaderMobile from "@/components/Header/HeaderMobile";
+import Header from "@/components/Header/Header";
 
 const RobotoFlex = Roboto_Flex({
     weight: '600',
@@ -58,6 +60,7 @@ export default async function RootLayout({children, params}) {
                 <Toaster/>
                 <Header dataHeader={dataHeader}/>
                 {children}
+                <div className="border-t-[1px] border-GreyBlue pb-20"></div>
                 <Footer/>
             </SmoothScrolling>
             </body>

@@ -27,7 +27,8 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
 
         <div ref={container} className="gridCtn py-60 gap-y-10">
 
-            <motion.div style={{y}} className="col-start-2 col-end-5 object-cove aspect-[240/240] w-full h-full">
+            <motion.div style={{y}}
+                        className="col-start-2 col-end-5 object-cove aspect-[240/240] w-full h-full mobile:hidden">
                 <Image
                     src={urlForImage(data?.mlleBLock.image1.asset._ref)}
                     width={240}
@@ -38,7 +39,7 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
 
 
             <motion.div style={{y: y2}}
-                        className="col-start-10 col-end-13 object-cover w-full aspect-[240/240]">
+                        className="col-start-10 col-end-13 object-cover w-full aspect-[240/240] mobile:hidden">
                 <Image
                     src={urlForImage(data?.mlleBLock.image2.asset._ref)}
                     width={240}
@@ -52,11 +53,11 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
                 link={data?.mlleBLock.navItems?.[0].navItemUrl.linkUrl}
                 linkText={data?.mlleBLock.navItems?.[0].text}
                 isExternalLink={isExternalLink2}
-                className="col-start-4 col-end-10 text-Black w-full items-center justify-center text-center"
+                className="col-start-4 col-end-10 text-Black w-full items-center justify-center text-center mobile:col-span-12"
             />
 
             <motion.div
-                className="col-start-1 col-end-4 object-cover w-full row-start-2 aspect-[240/240]"
+                className="col-start-1 col-end-4 object-cover w-full row-start-2 aspect-[240/240] mobile:hidden"
                 style={{y: y3}}
             >
                 <Image
@@ -68,7 +69,7 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
             </motion.div>
 
             <motion.div
-                className="col-start-3 col-end-6 object-cover w-full aspect-[240/240]"
+                className="col-start-3 col-end-6 object-cover w-full aspect-[240/240] mobile:hidden"
                 style={{y: y4}}
             >
                 <Image
@@ -80,7 +81,7 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
             </motion.div>
 
             <motion.div
-                className="col-start-9 col-end-12 object-cover w-full aspect-[240/240]"
+                className="col-start-9 col-end-12 object-cover w-full aspect-[240/240] mobile:hidden"
                 style={{y: y5}}
             >
                 <Image

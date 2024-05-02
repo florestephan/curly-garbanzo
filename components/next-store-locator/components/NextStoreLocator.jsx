@@ -1,40 +1,46 @@
-"use client"
+"use client";
 
-import React, {useState} from 'react';
+import {useEffect, Suspense} from 'react';
 import StoreLocatorMap from "./StoreLocatorMap.jsx";
 import StoreSearch from "./StoreSearch.jsx";
 import ShopDetail from "./ShopDetail.jsx";
-import '../styles.css'
+import '../styles.css';
+import {useDataStore} from "@/components/store";
 
 const NextStoreLocator = ({locationsProp, apiKey, mapOptionsProp, iconPaths}) => {
-    const [locations, setLocations] = useState(locationsProp ?? []);
-    const [visibleStores, setVisibleStores] = useState([]);
-    const [selectedShop, setSelectedShop] = useState(null);
+    const updateDataStores = useDataStore(state => state.updateDataStores);
+    const visibleStores = useDataStore(state => state.visibleStores);
+    const selectedShop = useDataStore(state => state.selectedShop);
+    const setSelectedShop = useDataStore(state => state.setSelectedShop);
 
-    const handleShopSelect = (shop) => setSelectedShop(shop)
+    // Hydrate the store with initial locations if provided
+    useEffect(() => {
+        if (locationsProp && locationsProp.length > 0) {
+            updateDataStores(locationsProp);
+        }
+    }, [locationsProp, updateDataStores]);
+
     const handleCloseDetail = () => setSelectedShop(null);
 
     return (
-        <div className="relative grid grid-cols-6 overflow-hidden">
+        <div className="relative grid grid-cols-6 overflow-hidden mobile:flex mobile:flex-col-reverse">
             <StoreLocatorMap
-                locations={locations} setLocations={setLocations}
-                setVisibleStores={setVisibleStores}
-                setSelectedShop={setSelectedShop}
                 apiKey={apiKey}
                 mapOptionsProp={mapOptionsProp}
                 iconPaths={iconPaths}
             />
 
-            <div className="relative h-[60vh] lg:h-[80vh] col-span-6 lg:col-span-2">
-                <StoreSearch
-                    visibleStores={visibleStores}
-                    handleShopSelect={handleShopSelect}
-                />
+            <div className="absolute left-20 top-10 w-1/3 bg-white overflow-hidden mobile:static mobile:w-full">
+                <Suspense fallback={<p>Loading feed...</p>}>
+                    <StoreSearch/>
+                </Suspense>
 
-                <ShopDetail
-                    selectedShop={selectedShop}
-                    handleCloseDetail={handleCloseDetail}
-                />
+                <Suspense fallback={<p>Loading feed...</p>}>
+                    <ShopDetail
+                        selectedShop={selectedShop}
+                        handleCloseDetail={handleCloseDetail}
+                    />
+                </Suspense>
             </div>
         </div>
     );

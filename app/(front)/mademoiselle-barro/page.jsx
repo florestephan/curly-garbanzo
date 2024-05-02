@@ -31,7 +31,7 @@ export const MademoisellePage = async () => {
                         width={364}
                         height={294}
                         alt={data?.titrehero}
-                        className="m-auto absolute left-0 right-0 -translate-y-1/2"
+                        className="m-auto absolute left-0 right-0 -translate-y-1/2 mobile:w-fit"
                     />
 
                     <TitleTxtCta
@@ -39,15 +39,20 @@ export const MademoisellePage = async () => {
                         link={data?.navItems?.[0].navItemUrl.linkUrl}
                         linkText={data?.navItems?.[0].text}
                         isExternalLink={isExternalLink}
-                        className="py-44 col-start-4 col-end-10 text-Black w-full items-center justify-center text-center"
+                        className="py-44 col-start-4 col-end-10 text-Black w-full items-center justify-center text-center mobile:col-span-12"
                     />
 
                     <Selection value={data?.selectionBlock} className="text-Black"/>
-
-                    <ImageRepeater data={data?.imgRepeater}/>
-
                 </div>
             </section>
+
+            <section className="relative mb-10 pb-10">
+                <div className="gridCtn gap-y-10">
+                    <ImageRepeater data={data?.imgRepeater}/>
+                </div>
+            </section>
+
+
         </main>
     )
 }

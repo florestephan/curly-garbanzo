@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const CardWrapper = ({children, headerLabel, backUrl}) => {
     return (
-        <Card className="w-full gridCtn">
+        <Card className="w-full gridCtn mobile:flex mobile:flex-col mobile:mb-40 ">
             <CardHeader className="col-span-12 space-y-1">
                 <CardTitle className="text-90 text-center">{headerLabel}</CardTitle>
             </CardHeader>
