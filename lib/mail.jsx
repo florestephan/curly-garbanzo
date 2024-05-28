@@ -12,5 +12,5 @@ export const sendPasswordResetEmail = async (email, token) => {
         subject: "Réinitialiser votre mot de passe",
         html: `<p>Cliquez <a href="${resetLink}">ici</a> pour réitinialiser votre mot de passe.</p>`
     })
-
 }
+

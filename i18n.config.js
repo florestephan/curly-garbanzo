@@ -1,13 +1,10 @@
+// i18n.config.mjs
 const languages = [
-    {id: 'en', title: 'English'},
-    {id: 'fr', title: 'French'}
-]
-
-// isDeafult
+    {id: 'en', title: 'English', isDefault: false},
+    {id: 'fr', title: 'French', isDefault: true}
+];
 
 export const i18n = {
     languages,
-    base: languages.find(item => {
-        item.isDefault?.id
-    })
-}
+    base: languages.find(lang => lang.id)
+};

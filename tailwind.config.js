@@ -12,7 +12,8 @@ module.exports = {
     theme: {
         screens: {
             desktop: "1600px",
-            mobile: "900px"
+            'mobile': {'max': '1000px'},
+
         },
         extend: {
             colors: {
@@ -24,7 +25,9 @@ module.exports = {
                 GreyM: "#FAFAFA",
                 Pink: "#FCF7F7",
             },
-
+            boxShadow: {
+                'custom': '0px 10px 30px 0px #00000040',
+            },
             fontFamily: {
                 robotoFlex: ['var(--font-robotoFlex)'],
                 vazirmatn: ['var(--font-vazirmatn)'],

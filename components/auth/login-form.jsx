@@ -29,7 +29,8 @@ export const LoginForm = () => {
 
     const onSubmit = (values) => {
         //appel serveur action pass data from client to server
-//start transition permet de définit quand quelque chose à ended
+        //start transition permet de définit quand quelque chose à ended
+
         setError("")
         setSuccess("")
 
@@ -90,15 +91,17 @@ export const LoginForm = () => {
                                             </Link>
                                         </Button>
 
-                                        <div className="cta">
+                                        <div className="[&>button>span:last-child]:bg-GreyM cta">
 
                                             <button disabled={isPending} type="submit"
-                                                    className="inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue">
+                                                    className="group inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue">
                                                 LOGIN
                                                 <span className="w-5 border border-GreyBlue absolute"></span>
                                                 <span className="w-5 border border-GreyBlue absolute"></span>
                                                 <span className="w-5 border border-GreyBlue absolute"></span>
                                                 <span className="w-5 border border-GreyBlue absolute"></span>
+                                                <span
+                                                    className={`absolute opacity-0 m-1 -z-10 transition duration-200 inset-0 group-hover:opacity-100`}></span>
                                             </button>
 
                                         </div>

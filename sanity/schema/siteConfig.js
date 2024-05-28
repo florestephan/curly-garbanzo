@@ -9,6 +9,11 @@ export default {
             title: 'Site title',
         },
         {
+            title: "Numéro de téléphone",
+            type: "string",
+            name: "number"
+        },
+        {
             title: 'URL',
             name: 'url',
             type: 'url',

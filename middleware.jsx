@@ -1,88 +1,93 @@
 import {Negotiator} from "negotiator";
-import {match as matchLocale} from "@formatjs/intl-localematcher"
+import {match as matchLocale} from "@formatjs/intl-localematcher";
 import {i18n} from "@/i18n.config";
-
-
 import authConfig from "@/auth.config";
 import NextAuth from "next-auth";
-import {apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes} from "@/route";
+import {apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes, privateRoutes} from "@/route";
 import {NextResponse} from "next/server";
+import {parse} from 'cookie';
 
-const {auth} = NextAuth(authConfig)
+const {auth} = NextAuth(authConfig);
 
-// // Fonction pour obtenir la locale
-// export const getLocale = (request) => {
-//     const negotiatorHeaders = {}
-//     request.headers.forEach((value, key) => {
-//         negotiatorHeaders[key] = value;
-//     });
-//
-//     const locales = i18n.languages.map((lang) => lang.id);
-//     const languages = new Negotiator({headers: negotiatorHeaders}).languages();
-//
-//     const locale = matchLocale(languages, locales, i18n.base || 'id');
-//     return locale;
-// };
-//
-// export function middleware(req) {
-//     const pathname = req.nextUrl.pathname;
-//     const pathnameIsMissingLocale = i18n.languages.every(
-//         (locale) =>
-//             !pathname.startsWith(`/${locale.id}/`) && pathname !== `/${locale.id}`,
-//     );
-//
-//     if (pathnameIsMissingLocale) {
-//         const locale = getLocale(req);
-//         return NextResponse.redirect(
-//             new URL(
-//                 `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-//                 req.url,
-//             ),
-//         );
-//     }
-// }
+// On récupère la locale de l'url ou des cookies
+const getLocale = (request) => {
+    const cookies = parse(request.headers.get('cookie') || '');
+    const savedLocale = cookies.locale;
 
-//action du middleware auth
+    if (savedLocale) {
+        return savedLocale;
+    }
+
+    const negotiatorHeaders = {};
+    request.headers.forEach((value, key) => {
+        negotiatorHeaders[key] = value;
+    });
+
+    const locales = i18n.languages.map((lang) => lang.id);
+    const languages = new Negotiator({headers: negotiatorHeaders}).languages();
+
+    return matchLocale(languages, locales, i18n.base);
+};
+
 export default auth((req) => {
-    const {nextUrl} = req
-    const isLoggedIn = !!req.auth
+    const {nextUrl} = req;
+    const isLoggedIn = !!req.auth;
+    const pathname = nextUrl.pathname;
+    const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
+    const isPublicRoute = publicRoutes.includes(pathname);
+    const isAuthRoute = authRoutes.includes(pathname);
+    const isPrivateRoute = privateRoutes.includes(pathname);
 
+    // Vérifiez si le chemin contient /studio et laissez passer la requête
+    if (pathname.startsWith('/studio')) {
+        return null;
+    }
+    //
+    // if (pathname.startsWith(`/fr/images`) || pathname.startsWith(`/en/images`)) {
+    //     return null;
+    // }
 
-    //Allways allowd this route
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-    //not require authentification
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-    //require auth
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+    const pathnameIsMissingLocale = i18n.languages.every(
+        (locale) =>
+            !pathname.startsWith(`/${locale.id}/`) && pathname !== `/${locale.id}`,
+    );
 
-    //gestion de l'autheni
+    // Connecté et sur une route authRoutes
+    if (isAuthRoute && isLoggedIn) {
+        return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+    }
+
+    // Si c'est une route api, on laisse passer
     if (isApiAuthRoute) {
-        return null
+        return null;
     }
 
-    //check if we are on authroute
+    // On ajoute la locale devant la route si elle est manquante
+    if (pathnameIsMissingLocale) {
+        const locale = getLocale(req);
 
-    //LE failt de le mettre dans default blabla permet d'avoir la liverté dechanger par la suite la route ou est redirigé l'authentifié
-    //le fait de rajouter nexturl permet de creer une url absolue
-
-    if (isAuthRoute) {
-        if (isLoggedIn) {
-            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-        }
-        return null
+        // Créer la réponse de redirection et définir le cookie de langue
+        const response = NextResponse.redirect(new URL(`/${locale}${nextUrl.pathname}`, req.url));
+        response.cookies.set('locale', locale, {path: '/'});
+        return response;
     }
 
-    if (!isLoggedIn && !isPublicRoute) {
-        return NextResponse.redirect(new URL(`/auth/login`, nextUrl))
+    if (isPublicRoute) {
+        return null;
     }
 
-    return null
+    // Route privée et pas connecté
+    if (isPrivateRoute && !isLoggedIn) {
+        return NextResponse.redirect(new URL(`/fr/auth/login`, nextUrl));
+    }
 
-})
+    return null;
+});
 
-//permet de controler le status de l'app, is log ou pas par exemple et quoi faire avec les routes quand log ou pas
-//permet d'invoquer le middleware sans les static file et image
 export const config = {
-    // matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-    matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],  // clerk middleware
-}
+    matcher: [
+        "/((?!_next/static|_next/image|favicon.ico|studio|images).*)",
+        "/",
+        "/(api|trpc)(.*)"
+    ],
+};

@@ -26,12 +26,14 @@ export default defineConfig({
         // https://www.sanity.io/docs/the-vision-plugin
         visionTool({defaultApiVersion: apiVersion}),
         googleMapsInput({
-            apiKey: process.env.GOOGLE_MAP_KEY
+            apiKey: process.env.GOOGLE_MAP_KEY,
         }),
         documentInternationalization({
             // Required configuration
             supportedLanguages: i18n.languages,
-            schemaTypes: ['homepage', 'histoire', 'mllebarro'],
+            schemaTypes: schema.types.map(el => {
+                return el.name
+            }),
         })
     ],
 })

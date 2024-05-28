@@ -119,12 +119,13 @@ const Selection = ({value, className}) => {
                     </motion.div>
                 </div>
             </div>
-            <div className="cta mt-60 flex justify-center">
+            <div className="[&>a>span:last-child]:bg-Black cta mt-60 flex justify-center">
                 <Cta
                     link={value?.navItems?.[0].navItemUrl.linkUrl}
                     linkText={value?.navItems?.[0].text}
                     isExternalLink={isExternalLink}/>
             </div>
+
         </div>
     )
 }

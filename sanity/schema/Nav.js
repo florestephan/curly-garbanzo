@@ -30,6 +30,12 @@ export default {
             type: "array",
             title: "Navigation items",
             of: [{type: "navItem"}]
+        },
+        {
+            name: "language",
+            type: "string",
+            readOnly: true,
+            hidden: true
         }
     ],
 };

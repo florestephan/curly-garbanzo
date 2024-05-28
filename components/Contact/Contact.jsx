@@ -10,6 +10,9 @@ import Cta from "@/components/Cta";
 import {Textarea} from "@/components/ui/textarea";
 import {Checkbox} from "@/components/ui/checkbox";
 import {contactFormSchema} from "@/schemas";
+import {contact} from "@/actions/contact";
+import {FormError} from "@/components/auth/form-error";
+import {FormSuccess} from "@/components/auth/form-success";
 
 // Define Zod schema
 
@@ -37,17 +40,13 @@ export const Contact = () => {
         setError("");
         setSuccess("");
 
-        startTransition(async () => {
+        startTransition(() => {
             // Simulate a server action
-            console.log('Sending data:', values);
-            try {
-                // Replace the below comment with your API call
-                // const response = await api.sendContactForm(values);
-                setSuccess("Message sent successfully!");
-            } catch (error) {
-                setError("Failed to send message. Please try again.");
-                console.error('Error sending message:', error);
-            }
+            contact(values)
+                .then((data) => {
+                    setError(data.error)
+                    setSuccess(data.success)
+                })
         });
     };
 
@@ -142,17 +141,26 @@ export const Contact = () => {
                 />
 
 
-                <div className="cta col-span-12 justify-self-end">
-                    <button type="submit"
-                            className="inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue">
+                <div className="[&>button>span:last-child]:bg-GreyM cta col-span-12 justify-self-end">
+                    <button disabled={isPending} type="submit"
+                            className={`group inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue ${isPending ? "opacity-50" : "opacity-100"}`}>
                         ENVOYER
                         <span className="w-5 border border-GreyBlue absolute"></span>
                         <span className="w-5 border border-GreyBlue absolute"></span>
                         <span className="w-5 border border-GreyBlue absolute"></span>
                         <span className="w-5 border border-GreyBlue absolute"></span>
+                        <span
+                            className={`absolute opacity-0 m-1 -z-10 transition duration-200 inset-0 group-hover:opacity-100`}></span>
                     </button>
                 </div>
+
+                <div className="col-span-12">
+                    <FormError message={error}/>
+                    <FormSuccess message={success}/>
+                </div>
             </form>
+
+
         </Form>
     )
         ;

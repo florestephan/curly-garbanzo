@@ -2,7 +2,7 @@ import ToggleLang from "@/components/Footer/ToggleLang";
 import {sanityFetch} from "@/sanity/lib/client";
 import Link from "next/link";
 
-export default async function Footer() {
+export default async function Footer({language}) {
 
     const data = await sanityFetch({
         // query: `*[_id  == "ffc12c19-e0a3-4fe8-a86c-ee2057e7d869"][0]`,
@@ -28,7 +28,7 @@ export default async function Footer() {
                     ></path>
                 </svg>
 
-                <ToggleLang/>
+                <ToggleLang translations={language}/>
 
                 <div
                     className="container col-start-7 col-end-13 row-start-1 mobile:col-span-12 mobile:grid mobile:grid-cols-2 mobile:text-left mobile:justify-items-start mobile:row-start-2 mobile:pb-5">

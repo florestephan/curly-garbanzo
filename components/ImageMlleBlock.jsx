@@ -53,7 +53,7 @@ const ImageMlleBlock = ({data, isExternalLink2}) => {
                 link={data?.mlleBLock.navItems?.[0].navItemUrl.linkUrl}
                 linkText={data?.mlleBLock.navItems?.[0].text}
                 isExternalLink={isExternalLink2}
-                className="col-start-4 col-end-10 text-Black w-full items-center justify-center text-center mobile:col-span-12"
+                className="[&>a>span:last-child]:bg-white col-start-4 col-end-10 text-Black w-full items-center justify-center text-center mobile:col-span-12"
             />
 
             <motion.div

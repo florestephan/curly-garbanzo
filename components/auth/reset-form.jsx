@@ -31,13 +31,13 @@ export const ResetForm = () => {
         setError("")
         setSuccess("")
 
-        // startTransition(() => {
-        //     reset(values)
-        //         .then((data) => {
-        //             setError(data.error)
-        //             setSuccess(data.success)
-        //         })
-        // })
+        startTransition(() => {
+            reset(values)
+                .then((data) => {
+                    setError(data.error)
+                    setSuccess(data.success)
+                })
+        })
     }
 
     return (
@@ -66,14 +66,17 @@ export const ResetForm = () => {
                     <FormError message={error}/>
                     <FormSuccess message={success}/>
 
-                    <div className="cta flex items-center justify-center">
+                    <div className="[&>button>span:last-child]:bg-GreyM cta flex items-center justify-center">
                         <button disabled={isPending} type="submit"
-                                className="inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue">
+                                className="group inline-flex w-fit items-center relative text-cta border h-12 px-8 border-GreyBlue">
                             Réinitialiser mon mot de passe
                             <span className="w-5 border border-GreyBlue absolute"></span>
                             <span className="w-5 border border-GreyBlue absolute"></span>
                             <span className="w-5 border border-GreyBlue absolute"></span>
                             <span className="w-5 border border-GreyBlue absolute"></span>
+                            <span
+                                className={`absolute opacity-0 m-1 -z-10 transition duration-200 inset-0 group-hover:opacity-100`}></span>
+
                         </button>
                     </div>
 

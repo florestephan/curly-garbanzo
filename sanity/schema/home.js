@@ -180,7 +180,6 @@ export const Home =
                     },
                 ]
             },
-
             {
                 name: 'language',
                 type: 'string',

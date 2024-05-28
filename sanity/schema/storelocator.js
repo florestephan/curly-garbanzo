@@ -1,23 +1,26 @@
 export const Storelocator = {
     name: "Storelocator",
-    title: "storelocator",
+    title: "Storelocator gestion map",
     type: "document",
     fields: [
         {
             name: 'company',
             title: 'Points de vente',
             type: 'string',
+            validation: (Rule) => Rule.required(),
         },
         {
             title: "Adresse",
             name: "location",
-            type: "geopoint"
+            type: "geopoint",
+            validation: (Rule) => Rule.required(),
         },
         {
             name: 'richText',
             title: 'Informations adresse',
             type: 'array',
             of: [{type: 'block'}],
+            validation: (Rule) => Rule.required(),
         },
         {
             title: "Telephone",
@@ -41,9 +44,9 @@ export const Storelocator = {
             validation: (Rule) => Rule.required(),
             options: {
                 list: [
-                    {title: "Barro", value: "barro"},
-                    {title: "Barro & Mademoiselle by Barro", value: "mllebarro"},
-                    {title: "Mademoiselle by Barro", value: "mlle"}
+                    {title: "Barro", value: "Barro"},
+                    {title: "Barro & Mademoiselle by Barro", value: "Barro & Mademoiselle by Barro"},
+                    {title: "Mademoiselle by Barro", value: "Mademoiselle by Barro"}
                 ],
                 layout: "radio",
                 direction: "horizontal"
